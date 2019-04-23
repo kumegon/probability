@@ -38,6 +38,7 @@
 }
 \end{comment}
 
+\renewcommand\thefootnote{\arabic{footnote})}
 
 \theoremstyle{definition}
 \renewcommand{\proofname}{\bf{証明}}
@@ -188,8 +189,8 @@ $A(x) \supset B(x)$.\
   \end{cases}
 \end{equation}
 なので,\ 明らかに
-$B(x)$
-は可測集合である.\ 
+$B(x) \in \mathcal{B}((0,1))$
+である.\ 
 よって,\ 任意の
 $x\in \mathbb{R}$
 において
@@ -197,6 +198,46 @@ $A(x)$
 も可測集合であるので,\ 命題2.15より
 $Y$
 は確率変数である.\ 
+
+
+\section*{表記法}
+  $(\Omega,\mathcal{F},\mu)$
+  を測度空間とし,\ 
+  $f:\Omega \to \mathbb{R}$
+  を可測関数とする.\ 
+
+  $f = \sum_{i=1}^m a_i 1_{A_i},\ a_i \in \left[ 0, \infty\right],\ A_i \in \mathcal{F}$
+  と有限和でかけるとき,\ 
+  $f$
+  を単純と呼び,\ そのときに限り,\ 
+  $f \in SF^+$
+  と書く.\ 
+  $f$
+  が非負値関数であるときに限り,\ 
+  $f \in m\mathcal{F}^+$
+  と書く.\ 
+  $f$
+  が一般の可測関数であるときに限り,\ 
+  $f \in m\mathcal{F}$
+  と書く.\ 
+
+  集合列
+  $A_n$
+  が単調増加し,\ 
+  $\bigcup_{n=1}^{\infty} A_n = A$
+  となるとき,\ 
+  $A_n \nearrow A$
+  と書く.\ 
+
+  また,\ 関数列
+  $f_n$
+  が各点で単調増加
+  $(f_n(\omega) \leq f_{n+1}(\omega) \ldots)$
+  し,\ 
+  $\lim_{n} f_n(\omega) = f(\omega)$
+  となるとき,\ 
+  $f_n \nearrow f$
+  と書く.\ 
 
 \section*{積分の基礎事項}
 \begin{definition}[測度の積分]
@@ -213,34 +254,26 @@ $Y$
   $\int_{\Omega} f(\omega) \mu (d\omega)$
   と表記する.\ 
 
-  $f = \sum_{i=1}^m a_i 1_{A_i},\ a_i \in \left[ 0, \infty\right],\ A_i \in \mathcal{F}$
-  と有限和でかけるとき,\ 
-  $f$
-  を単純と呼び,\ 
-  $f \in SF^+$
-  と書く.\ 
   $f \in SF^+$
   のとき,\ 
   \begin{equation}
     \mu (f) := \sum_{i=1}^m a_i \mu(A_i)
   \end{equation}
-  と定義し,\ 
-  $f$
-  が非負値関数である($f \in m\mathcal{F}^+$と書く)とき,\ 
+  と定義しする.\  
+  $f \in m\mathcal{F}^+$
+  のとき,\ 
   \begin{equation}
     \mu(f) := \sup\left\{ \mu(h) | h \in SF^+,\ h \leq f\right\}
   \end{equation}
-  と定義する(教科書では
-  $\lim$
-  で定義されている).\ 
+  と定義する(教科書とは異なることに注意).\ 
   また,\ 
-  $f$
-  が一般の可測関数である($f \in m\mathcal{F}$と書く)とき,\ 
+  $f\in m\mathcal{F}$
+  であるとき,\ 
   $f^+(\omega) := \max(f(\omega),0)$,\ 
   $f^-(\omega) := \max(-f(\omega),0)$
   とし,\ さらに
-  $\mu(|f|)=\mu(f^+)+\mu(f^-) < \infty$
-  であるとき,\ 
+  $\mu(f^+)\, \mu(f^-)$
+  のうち少なくとも片方が有限な値を取るとき,\ 
   \begin{equation}
     \mu(f) := \mu(f^+) - \mu(f^-)
   \end{equation}
@@ -326,7 +359,7 @@ $Y$
       $r$
       を固定した時,\ 
       $n$
-      について単調非減少で,\ 
+      について単調増加で,\ 
       $y^r:=\lim_n y_n^r$
       が存在する.\ 
     \item
@@ -335,12 +368,12 @@ $Y$
       $n$
       を固定した時,\ 
       $r$
-      について単調非減少で,\ 
+      について単調増加で,\ 
       $y_n:=\lim_r y_n^r$
       が存在する.\ 
   \end{itemize}
   このとき,\ 
-  $y^\infty:=\lim_r y_n^r = \lim_n y_n^r=:y_\infty$
+  $y^\infty:=\lim_r y^r = \lim_n y_n=:y_\infty$
   となる.\ 
 \end{proposition}
 
@@ -372,8 +405,8 @@ $Y$
 
 \begin{lemma} \label{lemma:mono_set}
   $F_n \in \mathcal{F}$
-  が単調非減少で
-  $F=\bigcup_{n=1}^{\infty} F_n$
+  が
+  $F_n \nearrow F$
   とする.\ 
   このとき,\ 
   $\lim_{n} \mu(F_n) = \mu(F)$
@@ -386,24 +419,34 @@ $Y$
   $G_n = F_n \setminus F_{n-1}\ (n\geq2)$
   とすると,\ 各
   $G_n$
-  はそれぞれdisjointである.\ 
+  はそれぞれ互いに素である.\ 
   よって,\ 
   $\mu(F_n) = \mu(\bigcup_{k=1}^n G_k) = \sum_{k=1}^n \mu(G_k)$
   であるので,\ 
-  $\lim_{n} \mu(F_n) = \sum_{k=1}^{\infty} \mu(G_k) = \mu(F)$.
+  $\lim_{n} \mu(F_n) = \lim_n \mu\left( \bigcup_{k=1}^n G_k\right) = \lim_n \sum_{k=1}^n \mu(G_k)  = \sum_{k=1}^{\infty} \mu(G_k) = \mu\left( \bigcup_{k=1}^{\infty} G_k\right) = \mu\left( \bigcup_{n=1}^{\infty}F_n\right) = \mu(F)$.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lemma:point_convergence}
+  (1)
   $A \in \mathcal{F},\ h_n \in SF^+$,\ 
-  $h_n$
-  は各点において単調非減少で,\ 
-  $1_A$
-  に各点収束するとすると,\ 
+  $h_n \nearrow 1_A$
+  とする.\ 
+  このとき,\ 
   $\lim_n \mu(h_n) = \mu(A)$
+  である.\ 
+
+  (2)
+  $f,\ g_n \in SF^+$
+  で,\ 
+  $g_n \nearrow f$
+  とする.\ 
+  このとき,\ 
+  $\lim_n \mu(g_n) = \mu(f)$
   である.\ 
 \end{lemma}
 
 \begin{proof}
+  (1)
   補題\ref{lemma:int_nature}(2)より,\ 
   $\mu(h_n) \leq \mu(1_A) = \mu(A)$
   である.\ 
@@ -450,7 +493,224 @@ $Y$
   は任意にとってよいので
   $\liminf_n \mu(h_n) \geq \mu(A)$
   となる.\ 
+
+  (2)
+  $f = \sum_{i=1}^m a_i 1_{A_i}$
+  とし,\ 
+  各
+  $A_i$
+  は互いに素で,\ 
+  $a_i \geq 0$
+  とする.\ 
+  このとき,\ 各
+  $i$
+  で,\ 
+  $g_n \nearrow f$
+  であるので,\ 
+  $1_{A_i}g_n \nearrow 1_{A_i}f = a_i 1_{A_i}$
+  となり,\ 
+  $a_i^{-1}1_{A_i}g_n \nearrow 1_{A_i}$
+  となる.\ 
+  よって,\ 積分の線形性と(1)とより,\ 
+  $\lim_n \mu(a_i^{-1}1_{A_i}g_n) = a_i^{-1} \lim_n \mu(1_{A_i}g_n) = \mu(A_i)$
+  から,\ 
+  $\lim_n \mu(1_{A_i}g_n) = a_i \mu(A_i)$
+  となる.\ 
+  また,\ 
+  $g_n = \sum_{i=1}^m 1_{A_i}g_n$
+  と表現できる.\ 
+  したがって,\ 
+  \begin{align}
+    \lim_n \mu(g_n)
+    & = \lim_{n \to \infty} \mu\left(\sum_{i=1}^m 1_{A_i}g_n \right) \\
+    & = \lim_{n \to \infty} \sum_{i=1}^m \mu(1_{A_i}g_n) \\
+    & = \sum_{i=1}^m \lim_{n \to \infty} \mu(1_{A_i}g_n) \\
+    & = \sum_{i=1}^m a_i \mu(A_i) \\
+    & = \mu(f).
+  \end{align}
 \end{proof}
+
+\begin{lemma}[積分の唯一性]\label{lemma:int_unique}
+  \mbox{}
+  (1)
+  $f \in m\mathcal{F}^+$
+  とし,\ 
+  二つの関数列
+  $f^r,\ f_n \in SF^+$
+  が各々
+  $f^r \nearrow f,\ f_n \nearrow f$
+  とする.\ 
+  このとき,\ 
+  $\lim_r \mu\left( f^r\right) = \lim_n \mu\left( f_n\right)$
+  である.\ 
+
+  (2)
+  $f \in m\mathcal{F}^+$
+  とし,\ 関数列
+  $f_n \in SF^+$
+  が
+  $f_n \nearrow f$
+  であるとする.\ 
+  このとき,\ 
+  $\lim_n \mu(f_n) = \mu(f)$
+  である.\ 
+\end{lemma}
+
+\begin{proof}
+  (1)
+  $f_n^r:\Omega \to \mathbb{R} : \omega \mapsto \min\left( f^r(\omega), f_n(\omega)\right)$
+  とする.\ 
+  このとき,\ 
+  $r$
+  に関して
+  $f_n^r\nearrow f_n$
+  ,
+  $n$
+  に関して
+  $f_n^r \nearrow f^r$
+  となる.\ 
+  補題\ref{lemma:point_convergence}(2)より,\ 
+  $\lim_r \mu\left( f_n^r\right) = \mu(f_n)$,
+  $\lim_n \mu\left( f_n^r\right) = \mu(f^r)$
+  となり,\ 命題\ref{prop:doubly}から,\ 
+  $\lim_r \mu\left( f^r\right) = \lim_n \mu\left( f_n\right)$
+  である.\ 
+
+  (2)
+  非負値関数の定義より,\ 各点で
+  $h_n < f $
+  で
+  $\lim_n \mu(h_n) = \mu(f)$
+  となるような関数列
+  $h_n \in SF^+$
+  が存在する.\ 
+  関数列
+  $g_n \in SF^+$
+  が
+  $g_n \nearrow f$
+  であるとする.\ 
+  ここで,\ 
+  $f'_n := \max(g_n,\ h_1,\ h_2,\ \ldots,\ h_n)$
+  とすると,\ 
+  $f'_n \in SF^+,\ f'_n \leq f$
+  となり,\ 
+  $f'_n \geq g$
+  であるので,\ 
+  $f'_n \nearrow f$
+  である.\ 
+  積分の定義から,\ 
+  $\mu(f'_n) \leq \mu(f)$
+  である.\ 
+  さらに,\ 
+  $f'_n \geq h_n$
+  であるので,\ 
+  $\mu(f'_n) \geq \mu(h_n)$
+  である.\ 
+  よって,\ 
+  $\mu(f) = \lim_n \mu(h_n) \leq \lim_n \mu(f'_n)$
+  となり,\ 
+  $\lim_n \mu(f'_n) = \mu(f)$
+  であることがわかった.\ 
+
+  関数列
+  $f_n\in SF^+$
+  が
+  $f_n \nearrow f$
+  となるように任意に選んできたとき,\ (1)より,\ 
+  $\lim_n \mu(f_n) = \lim_n \mu(f'_n) = \mu(f)$
+  となる.\ 
+\end{proof}
+
+教科書の期待値の定義はこの補題のことを言っている.\ 
+
+\begin{theorem}[単調収束定理]\label{theo:mono}
+  $f_n \in m\mathcal{F}^+,\ f_n \nearrow f \ (\in m\mathcal{F}^+\footnote{可測関数の極限は可測関数である.\ })$
+  とする.\ 
+  このとき,\ 
+  $\lim_n \mu(f_n) = \mu(f)$
+  となる.\ 
+\end{theorem}
+
+\begin{proof}
+  任意の
+  $r \in \mathbb{N}$
+  に対して、
+  \begin{equation}
+    \alpha^r:\left[ 0,\infty\right] \to \left[ 0,\infty\right]:x\mapsto
+    \begin{cases}
+      0 & {\rm if}\ x=0 \\
+      (i-1)2^{-r} & {\rm if}\ (i-1)2^{-r} < x \leq i2^{-r} \ (i\in\mathbb{N}) \\
+      r & {\rm if} \ x > r,
+    \end{cases}
+  \end{equation}
+  とする.\ 
+  $f_n^r:=\alpha^r \circ f_n,\ f^r:=\alpha^r \circ f$
+  とする.\ 
+  明らかに
+  $f_n^r,\ f^r \in SF^+$
+  である.\ 
+  $\alpha^r$
+  は左連続関数で,\ 
+  $f_n \nearrow f$
+  だから,\ 
+  $f_n^r \nearrow f^r$
+  となるので,\ 補題\ref{lemma:point_convergence}(2)より,\ 
+  $\lim_n \mu(f_n^r) = \mu(f^r)$
+  である.\ 
+  また,\ 
+  $id:[0,\infty) \to [0,\infty)$
+  を恒等写像とすると,\ 
+  $a_r \nearrow id$\footnote{
+    任意の
+    $x\in \left[ 0, \infty \right)$
+    ,\ 
+    $\epsilon > 0$
+    に対して,\ 
+    $r_0 = \lceil \max(x, -\log_2 \epsilon) \rceil$
+    とする.\ 
+    $r > r_0$
+    とする.\ 
+    $x \leq r_0 < r$
+    だから,\ ある
+    $i \in \mathbb{N}$
+    が存在して
+    $(i-1)2^{-r} < x \leq i2^{-r}$
+    とできる.\ 
+    よって,\ 
+    $i \geq x2^r$
+    であるので,\ 
+    $0 < x - \alpha^r(x) = x - (i-1)2^{-r} \leq x - (x2^r - 1)2^{-r} = 2^{-r}$
+    となる.\ 
+    $- \log_2 \epsilon < r$
+    だから,\ 
+    $2^{-r} < \epsilon$
+    となる.\ 
+    したがって,\ 
+    $0 < x- \alpha^r(x) < \epsilon$
+    を示すことができたので,\ 
+    $\alpha^r \nearrow id$.
+  }
+  だから,\ 
+  $f_n^r \nearrow f_n$
+  となり,\ 補題\ref{lemma:int_unique}(2)より,\ 
+  $\lim_r \mu(f_n^r) = \mu(f_n)$
+  である.\ 
+  さらに,\ 
+  $f^r \nearrow f$
+  であるので,\ 補題\ref{lemma:int_unique}(2)より,\ 
+  $\lim_r \mu(f^r) = \mu(f)$
+  である.\ 
+  以上より,\ 命題\ref{prop:doubly}より,\ 
+  $\lim_n \mu(f_n) = \lim_r \mu(f^r) = \mu(f)$
+  とわかる.\ 
+\end{proof}
+
+\section*{測度論の積分における主要な定理}
+以下、単調収束定理を用いて、Fatouの補題、Lebesugueの収束定理を示す。
+
+\begin{lemma}[Fatouの補題]\label{lemma:Fatou}
+\end{lemma}
+
 
 %\bibliographystyle{junsrt}
 %\bibliography{}
