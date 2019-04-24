@@ -74,6 +74,7 @@
 \begin{document}
 \maketitle
 
+
 \section*{命題2.25の証明の補足}
 1)-3)を満たす
 $\mathbb{R}$
@@ -578,7 +579,7 @@ $Y$
 
   (2)
   非負値関数の定義より,\ 各点で
-  $h_n < f $
+  $h_n \leq f $
   で
   $\lim_n \mu(h_n) = \mu(f)$
   となるような関数列
@@ -634,7 +635,7 @@ $Y$
 \begin{proof}
   任意の
   $r \in \mathbb{N}$
-  に対して、
+  に対して,\ 
   \begin{equation}
     \alpha^r:\left[ 0,\infty\right] \to \left[ 0,\infty\right]:x\mapsto
     \begin{cases}
@@ -660,37 +661,8 @@ $Y$
   また,\ 
   $id:[0,\infty) \to [0,\infty)$
   を恒等写像とすると,\ 
-  $a_r \nearrow id$\footnote{
-    任意の
-    $x\in \left[ 0, \infty \right)$
-    ,\ 
-    $\epsilon > 0$
-    に対して,\ 
-    $r_0 = \lceil \max(x, -\log_2 \epsilon) \rceil$
-    とする.\ 
-    $r > r_0$
-    とする.\ 
-    $x \leq r_0 < r$
-    だから,\ ある
-    $i \in \mathbb{N}$
-    が存在して
-    $(i-1)2^{-r} < x \leq i2^{-r}$
-    とできる.\ 
-    よって,\ 
-    $i \geq x2^r$
-    であるので,\ 
-    $0 < x - \alpha^r(x) = x - (i-1)2^{-r} \leq x - (x2^r - 1)2^{-r} = 2^{-r}$
-    となる.\ 
-    $- \log_2 \epsilon < r$
-    だから,\ 
-    $2^{-r} < \epsilon$
-    となる.\ 
-    したがって,\ 
-    $0 < x- \alpha^r(x) < \epsilon$
-    を示すことができたので,\ 
-    $\alpha^r \nearrow id$.
-  }
-  だから,\ 
+  $a_r \nearrow id$
+  (証明はAppendixに記載)だから,\ 
   $f_n^r \nearrow f_n$
   となり,\ 補題\ref{lemma:int_unique}(2)より,\ 
   $\lim_r \mu(f_n^r) = \mu(f_n)$
@@ -706,10 +678,211 @@ $Y$
 \end{proof}
 
 \section*{測度論の積分における主要な定理}
-以下、単調収束定理を用いて、Fatouの補題、Lebesugueの収束定理を示す。
+以下,\ 単調収束定理を用いて,\ 非負値可測関数の積分の性質,\ Fatouの補題,\ Lebesugueの収束定理を示す.\ 
+
+\begin{lemma}[非負値関数の積分の性質]
+  $f,\ g\in m\mathcal{F}^+$
+  とする.\ 
+  \begin{description}
+    \item[(1)線形性]
+      $\alpha,\ \beta \in \mathbb{R}$
+      のとき,\ 
+      $\mu(\alpha f + \beta g) = \alpha \mu(f) + \beta \mu(g)$
+      となる.\ 
+    \item[(2)単調性]
+      $f \leq g$
+      のとき,\ 
+      $\mu(f) \leq \mu(g)$
+      となる.\ 
+  \end{description}
+\end{lemma}
+
+\begin{proof}
+  $f_r := \alpha^r \circ f,\ g_r := \alpha^r \circ g$
+  とすると,\ 
+  $f_r,\ g_r \in SF^+$
+  かつ,\ 
+  $f_r \nearrow f,\ g_r \nearrow g$
+  となる.\ 
+  
+  (1)
+  単純な関数の積分の線形性より,\ 
+  $\mu(\alpha f_r + \beta g_r) = \alpha \mu(f_r) + \beta \mu(g_r)$
+  となる.\ 
+  また,\ 明らかに
+  $\alpha f_r + \beta g_r \nearrow \alpha f + \beta g$
+  であるので,\ 単調収束定理より,\ 
+  $\mu(\alpha f + \beta g_r) = \lim_r \mu(\alpha f_r + \beta g_r) = \lim_r \left(  \alpha \mu(f_r) + \beta \mu(g_r) \right) = \alpha \mu(f) + \beta \mu(g)$.
+
+  (2)
+  単純な関数の積分の単調性より,\ 
+  $\mu(f_r) \leq \mu(g_r)$
+  となる.\ 
+  よって,\ 任意の
+  $r \in \mathbb{N}$
+  に対して,\ 
+  $\mu(g_r - f_r) \geq 0$
+  となる.\ 
+  明らかに
+  $g_r-f_r \nearrow g-f$
+  であるので,\ 単調収束定理より,\ 
+  $\mu(g-f) = \lim \mu(g_r - f_r) \geq 0$
+  (1)より,\ 
+  $\mu(g) \geq \mu(f)$
+  となる.\ 
+\end{proof}
+
 
 \begin{lemma}[Fatouの補題]\label{lemma:Fatou}
+  \mbox{}
+  \begin{description}
+    \item[(1)Fatouの補題]
+      関数列
+      $f_n \in m\mathcal{F}$
+      は
+      $\mu\left( \liminf_n f_n\right) \leq \liminf_n \mu(f_n)$
+      となる.\ 
+    \item[(2)逆Fatouの補題]
+      関数列
+      $f_n \in m\mathcal{F}$
+      はある関数
+      $g \in m\mathcal{F}$
+      に対し
+      $f_n \leq g$
+      で,\ 
+      $\mu(g) < \infty$
+      とする.\ 
+      このとき,\ 
+      $\mu\left( \limsup_n f_n\right) \geq \limsup \mu(f_n)$
+      となる.\ 
+  \end{description}
 \end{lemma}
+
+\begin{proof}
+  (1)
+  関数列
+  $(g_k)_{k=1}^{\infty}$
+  を
+  $g_k:= \inf_{n\leq k} f_n$
+  とすると,\ 
+  $\liminf_n f_n = \lim_k g_k$
+  となる.\ 
+  定義より
+  $g_k$
+  は単調増加なので,\ 単調収束定理より,\ 
+  $\mu\left( \lim_k g_k\right) = \lim_k \mu(g_k)$
+  である.\ 
+  また,\ 
+  $n \geq k$
+  であるとき,\ 
+  $f_n \geq g_k$
+  であるので,\ 積分の単調性より
+  $\mu(f_n) \geq \mu(g_k)$
+  となり,\ 
+  $\mu(g_k) \leq \inf_{n\geq k} \mu(f_n)$
+  である.\ 
+  以上より,\ 
+  $\mu\left( \liminf_n f_n\right) = \mu\left( \lim_k g_k\right) = \lim_k \mu(g_k) \leq \lim_k \inf_{n\geq k} \mu(f_n) =: \liminf_n \mu(f_n)$
+  である.\ 
+
+  (2)
+  $g-f_n \in m\mathcal{F}$
+  に対し,\ (1)を適用すると
+  $\mu\left( \liminf_n (g-f_n)\right) \leq \liminf_n \mu(g-f_n)$
+  となる.\ 
+  積分の線形性と
+  $\liminf$
+  の定義より,\ 
+  $\mu\left( \liminf_n (g-f_n)\right) = \mu(g) - \mu\left( -\liminf_n -f_n\right) = \mu(g) - \mu\left( \limsup_n f_n\right)$,\ 
+  $\liminf_n \mu(g-f_n) = \mu(g) + \liminf_n - \mu(f_n) = \mu(g) - \limsup_n \mu(f_n)$
+  である.\ 
+  以上の2式を比較すると,\ 
+  $\mu(g) - \mu\left( \limsup_n f_n\right) \leq \mu(g) - \limsup_n \mu(f_n)$
+  より,\ 
+  $\mu\left( \limsup_n f_n\right) \leq \limsup_n \mu(f_n)$
+  となる.\ 
+\end{proof}
+
+\begin{theorem}[Lebesugueの収束定理]
+  $f_n,\ f \in m\mathcal{F}$
+  とし,\ 
+  $f_n$
+  が
+  $f$
+  に各点収束するとする.\ 
+  $g \in m\mathcal{F}^+$
+  が可積分,\ 
+  つまり
+  $\mu(g) < \infty$
+  で,\ かつ,\ 任意の
+  $\omega \in \Omega,\ n \in \mathbb{N}$
+  に対して
+  $|f_n(\omega)| \leq g(s)$
+  であるとする.\ 
+  このとき,\ 
+  $\lim_n \mu\left( |f_n - f|\right) = 0$
+  となり,\ 
+  $\lim_n \mu(f_n) = \mu(f)$
+  となる.\ 
+\end{theorem}
+
+\begin{proof}
+  $|f_n-f| \leq 2g$
+  かつ,\ 
+  $\mu(2g) < \infty$
+  であるから,\ 逆Fatouの補題より,\ 
+  $\limsup_n \mu\left( |f_n-f|\right) \leq \mu\left( \limsup_n |f_n - f|\right) = \mu(0) = 0$
+  となる.\ 
+  最後から2番目の式に出てくる
+  $0$
+  は常に
+  $0$
+  を返す関数である.\ 
+
+  したがって,\ 
+  $|\mu(f_n) - \mu(f)| = |\mu(f_n - f)| \leq \mu(|f_n - f|)$
+  より,\ 
+  $0 \leq \limsup_n |\mu(f_n - f)| \leq \limsup_n \mu(|f_n-f|) = 0 $
+  であるので,\ 
+  $\lim_n |\mu(f_n - f)| = 0$
+  となる.\ 
+  したがって,\ 
+  $\lim_n \mu(f_n) = \mu(f)$
+  となる.\ 
+\end{proof}
+
+\section*{Appendix}
+\subsection*{$\alpha_r \nearrow id$の証明}
+\begin{proof}
+  任意の
+  $x\in \left[ 0, \infty \right)$
+  ,\ 
+  $\epsilon > 0$
+  に対して,\ 
+  $r_0 = \lceil \max(x, -\log_2 \epsilon) \rceil$
+  とする.\ 
+  $r > r_0$
+  とする.\ 
+  $x \leq r_0 < r$
+  だから,\ ある
+  $i \in \mathbb{N}$
+  が存在して
+  $(i-1)2^{-r} < x \leq i2^{-r}$
+  とできる.\ 
+  よって,\ 
+  $i \geq x2^r$
+  であるので,\ 
+  $0 < x - \alpha^r(x) = x - (i-1)2^{-r} \leq x - (x2^r - 1)2^{-r} = 2^{-r}$
+  となる.\ 
+  $- \log_2 \epsilon < r$
+  だから,\ 
+  $2^{-r} < \epsilon$
+  となる.\ 
+  したがって,\ 
+  $0 < x- \alpha^r(x) < \epsilon$
+  を示すことができたので,\ 
+  $\alpha^r \nearrow id$.
+\end{proof}
 
 
 %\bibliographystyle{junsrt}
