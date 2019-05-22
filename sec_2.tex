@@ -75,7 +75,7 @@
 \maketitle
 
 
-\section*{命題2.25の証明の補足}
+\section{命題2.25の証明の補足}
 1)-3)を満たす
 $\mathbb{R}$
 上の関数
@@ -201,7 +201,7 @@ $Y$
 は確率変数である.\ 
 
 
-\section*{特異型の分布関数の例:Cantor関数}
+\section{特異型の分布関数の例:Cantor関数}
 Cantor関数は特異型の分布関数の
 $1$
 つで,\ 測度が
@@ -389,7 +389,329 @@ $B := [0,1] \cap \left( \bigcup_{l=1}^{\infty}A_l\right)^c \in \mathcal{B}(\math
 \end{align}
 となるので,\ Cantor関数は特異型であることがわかった.\ 
 
-\section*{表記法}
+
+\section{H\"olderの不等式の証明}
+(1)
+$p,\ q$
+が仮定を満たすとする. 
+
+まず,  任意の非負数
+$a,\ b$
+に対し, 
+\begin{equation}
+  g(a):=\frac{1}{p}a^p + \frac{1}{q}b^q - ab\geq 0
+\end{equation}
+が成り立つことを示す.\ 
+$g'(a) = a^{p-1} - b,\ g''(a)=(p-1)a^{p-2} \geq 0$
+なので,\ 
+$g'(a) = 0 \Leftrightarrow a = b^{\frac{1}{p-1}}$
+のとき,\ 
+$g(a)$
+は最小となる.\ 
+したがって,\ 
+\begin{align}
+  g(a)
+  & \geq g(b^{\frac{1}{p-1}}) \\
+  & = \frac{1}{p}b^{\frac{p}{p-1}} + \frac{1}{q}b^q - b^{\frac{1}{p-1}}b \\
+  & = \frac{1}{p}b^{q} + \frac{1}{q}b^q + b^q \\
+  & \geq 0
+\end{align}
+となる.\ 
+下から2番目の式は
+$\frac{1}{p}+\frac{1}{q}=1$
+から
+$q=\frac{p}{p-1}$
+となることを用いた.\ 
+
+今,\ 
+$\omega \in \Omega$
+に対し,\ 
+$a = \frac{|X(\omega)|}{\mathbb{E}[|X|^p]^{\frac{1}{p}}}$,
+$b = \frac{|Y(\omega)|}{\mathbb{E}[|Y|^q]^{\frac{1}{q}}}$
+とすると,\ 共に非負であるので,\ 
+\begin{align}
+  \frac{1}{p}\left( \frac{|X(\omega)|}{\mathbb{E}[|X|^p]^{\frac{1}{p}}}\right)^p + \frac{1}{q}\left( \frac{|Y(\omega)|}{\mathbb{E}[|Y|^q]^{\frac{1}{q}}}\right)^q
+  & = \frac{1}{p} \frac{|X(\omega)|^p}{\mathbb{E}[|X|]^p} + \frac{1}{q} \frac{|Y(\omega)|^q}{\mathbb{E}[|Y|^q]} \\
+  & \geq \frac{|X(\omega)||Y(\omega)|}{\mathbb{E}(|X|^p)^{\frac{1}{p}}\mathbb{E}(|Y|^q)^{\frac{1}{q}}}
+\end{align}
+が成り立つ.\ 
+よって,\ 積分の単調性と線形性より,\ 
+\begin{align}
+  \frac{1}{p}\frac{\mathbb{E}[|X|^p]}{\mathbb{E}[|X|^p]} + \frac{1}{q}\frac{\mathbb{E}(|Y|^q)}{\mathbb{E}(|Y|^q)}
+  & = \frac{1}{p} + \frac{1}{q} \\
+  & = 1 \\
+  & \geq \frac{\mathbb{E}[|XY|]}{\mathbb{E}(|X|^p)^{\frac{1}{p}}\mathbb{E}(|Y|^q)^{\frac{1}{q}}} \\
+  & \geq \frac{|\mathbb{E}[XY]|}{\mathbb{E}(|X|^p)^{\frac{1}{p}}\mathbb{E}(|Y|^q)^{\frac{1}{q}}}
+\end{align}
+となり,\ 
+$|\mathbb{E}[XY]| \leq \mathbb{E}(|X|^p)^{\frac{1}{p}}\mathbb{E}(|Y|^q)^{\frac{1}{q}}$
+であることがわかった.\ 
+
+(2)
+$A:= \left\{\omega \in \Omega \ |\  |X(\omega)| > \|X\|_\infty \right\}$
+とすると
+$\|X\|_\infty$
+の定義より,\ 
+$P(A) = 0$
+となる.\ 
+また,\ 
+$\omega \in \Omega \setminus A$
+において
+$|X(\omega)| \leq \|X\|_\infty$
+である.\ 
+よって,\ 
+\begin{align}
+  |\mathbb{E}[XY]|
+  & \leq \mathbb{E}[|XY|] \\
+  & = \int_{\Omega} |X(\omega)| |Y(\omega)| P(d\omega) \\
+  & = \int_{\Omega} |X(\omega)| |Y(\omega)| (1_{A} + 1_{\Omega \setminus A}) P(d\omega) \\
+  & = \int_{\Omega} |X(\omega)| |Y(\omega)| 1_{A} P(d\omega) + \int_{\Omega} |X(\omega)| |Y(\omega)| 1_{\Omega \setminus A} P(d\omega) \\
+  & = \int_{A} |X(\omega)| |Y(\omega)| P(d\omega) + \int_{\Omega \setminus A} |X(\omega)| |Y(\omega)| P(d\omega) \\
+  & = \int_{\Omega \setminus A} |X(\omega)| |Y(\omega)| P(d\omega) \\
+  & \leq \|X\|_\infty \int_{\Omega \setminus A} |Y(\omega)| P(d\omega) \\
+  & \leq \|X\|_\infty \int_{\Omega} |Y(\omega)| P(d\omega) \\
+  & = \|X\|_\infty \mathbb{E}[|Y|]
+\end{align}
+となり,\ 
+$|\mathbb{E}[XY]| \leq \|X\|_\infty \mathbb{E}[|Y|]$
+であることがわかった.\ 
+
+\section{確率変数列の収束}
+\begin{comment} %法則収束
+\begin{lemma}
+  確率変数列列
+  $(X_n)_{n=1}^{\infty}$
+  が
+  確率変数
+  $X$
+  に法則収束することと、分布関数列
+  $(F_{X_n})_{n=1}^{\infty}$
+  が
+  $F_X$
+  に各点収束することは同値である。
+\end{lemma}
+\begin{proof}
+  (1)必要性
+
+  $(X_n)_{n=1}^{\infty}$
+  が
+  $X$
+  に法則収束すると仮定する。
+  $\mathbb{E}[f(X)] = \int_{\mathbb{R}}f(x) P_X(dx)$
+  となるので、
+  $\lim_{n\to\infty} \int_{\mathbb{R}} f(x) P_{X_n}(dx) = \int_{\mathbb{R}} f(x) P_X(dx)$
+  となる。
+  $A \in \mathcal{O}(\mathbb{R})$
+  とすると、
+  $g_k \in C_b(\mathbb{R}) \nearrow 1_A$
+  となる関数列
+  $(g_k)_{k=1}^{\infty}$
+  が存在する。
+  $\int_{\mathbb{R}} 1_A(x) P_{X_n}(dx) = P_{X_n}(A) \geq \int_{\mathbb{R}} g_k(x) P_{X_n}(dx)$
+  なので、仮定より
+  $\liminf_{n\to\infty} P_{X_n}(dx) \geq \liminf_{n\to\infty} \int_{\mathbb{R}} g_k(x) P_{X_n}(dx) = \int_{\mathbb{R}} g_k(x) P_X(dx)$
+  が成り立つ。
+  単調収束定理より
+  $\lim_{k\to\infty} \int_{\mathbb{R}} g_k(x) P_X(dx) = \int_\mathbb{R} 1_A(x)P_X(dx) = P(A)$
+  が成り立つので、
+  \begin{equation} \label{eq:inf}
+    \liminf_{n\to\infty} P_{X_n}(A) \geq P(A)
+  \end{equation}
+  となる。
+  また、
+  $B = A^c$
+  とすると、
+  $\limsup_{n\to\infty} P_{X_n}(B) = \limsup_{n\to\infty} 1-P_{X_n}(A) = 1 - \liminf_{n\to\infty}P_{X_n}(A) \leq 1 - P_X(A) = P_X(B)$
+  が成り立つ。
+  よって、任意の
+  $B \in \mathcal{O}(\mathbb{R})^c$
+  に対し、
+  \begin{equation} \label{eq:inf}
+    \limsup_{n\to\infty} P_{X_n}(B) \leq P_X(B)
+  \end{equation}
+  となることがわかる。
+  以上より、任意の
+  $t \in \mathbb{R}$
+  に対し、
+  \begin{align}
+    \limsup_{n\to\infty} F_{X_n}(t) \\
+    & = \limsup_{n\to\infty} P_{X_n}((-\infty, t]) 
+    & \leq P_X((-\infty, t]) \\
+    & = F_X(t) \\
+    & = P_X
+  \end{align}%ここ書いてない
+  $\lim_{n\to\infty} \int_{\mathbb{R}} 1_A(x) P_{X_n}(dx) = \lim_{n\to\infty} P_{X_n}(A)$,
+  $\int_{\mathbb{R}} 1_A(x) P_X(dx) = P_X(A)$
+  となる。
+  よって、
+  $\lim_{n\to\infty} P_{X_n}(A) = P_X(A)$
+  であるので、
+  $\lim_{n\to\infty} F_{X_n} = F_X$
+  とわかる。
+
+  (2)十分性
+
+  $\lim_{n\to\infty}F_{X_n} = F_X$
+  と仮定する。
+  $\pi$-$\lambda$定理より、
+  $\lim_{n\to\infty}P_{X_n} = P_X$
+  である。
+  $A \in \mathcal{B}(\mathbb{R})$
+  とする。
+  $\lim_{n\to\infty} \int_\mathbb{R} 1_A(x) P_{X_n}(dx) = \lim_{n\to\infty} P_{X_n}(A)$,
+  $\int_{\mathbb{R}} 1_A(x) P_X(dx) = P_X(A)$
+  より、
+  $\lim_{n\to\infty} \int_{\mathbb{R}} 1_A(x) P_{X_n}(dx) = \int_{\mathbb{R}} 1_A(x) P_X(dx)$
+  とわかる。
+\end{proof}
+
+\end{comment}
+
+\subsection{p次平均収束して概収束しない例}
+例2.48の確率変数列
+$X_{n,k}(\omega) = 1_{\left( \frac{k-1}{n},\frac{k}{n}\right)}(\omega)$
+を考える.\ 
+$1\leq k \leq n$
+でなので,\ 与えられた
+$n,k$
+に対し,\ 
+$m = \frac{1}{2}n(n-1)+k$
+とすると,\ 
+$m$
+と
+$(n,k)$
+は1対1に対応できる.\ 
+新しい確率変数列
+$(Y_m)_{m=1}^{\infty}$
+を
+$m$
+に対応する
+$(n,k)$
+を用いて
+$Y_m:= X_{n,k}$
+と定義する.\ 
+確率変数列
+$(Y_m)_{m=1}^\infty$
+が確率変数
+$X(\omega) = 0 (\forall \omega \in \Omega)$
+にp次平均収束することを示す.\ 
+\begin{align}
+  \mathbb{E}[|Y_m-X|^p]
+  & = \mathbb{E}[|Y_m|^p] \\
+  & = \int_{\Omega} |Y_m|^p P(d\omega) \\
+  & = \int_{\Omega} |1_{\left( \frac{k-1}{n}, \frac{k}{n}\right)}(\omega)|^p P(d\omega) \\
+  & = \int_{\Omega} 1_{\left( \frac{k-1}{n}, \frac{k}{n}\right)}(\omega) P(d\omega)\\
+  & = P\left( \left( \frac{k-1}{n}, \frac{k}{n}\right)\right) \\
+  & = \frac{1}{n}
+\end{align}
+$m\to \infty$
+とすると,\ 
+$n\to \infty$
+となる.\ 
+よって,\ 
+$\lim_{m\to \infty} \mathbb{E}[|Y_m-X|^p] = \lim_{n\to \infty}\frac{1}{n} = 0$
+となり,\ 
+$(Y_m)_{m=1}^{\infty}$
+が
+$X$
+にp次平均収束することがわかった.\ 
+
+次に
+$(Y_m)_{m=1}^{\infty}$
+が
+$X$
+に概収束しないことを示す.\ 
+まず,\ 
+$(Y_m(\omega))_{m=1}^{\infty}$
+が任意の
+$\omega \in \Omega$
+において
+$X(\omega)$
+に収束しないことを示す.\ 
+任意の
+$\omega \in \Omega$,\ 
+$M_0 \in \mathbb{N}$
+に対し,\ ある
+$m > M_0$
+が存在し,\ 
+$\omega \in \left( \frac{k-1}{n}, \frac{k}{n}\right)$
+とできる.\ 
+ただし,\ 
+$(n,k)$
+は
+$m$
+に対応する自然数である.\ 
+$|Y_m(\omega) - X(\omega)| = |1_{\left( \frac{k-1}{n}, \frac{k}{n}\right)}(\omega)| = 1$
+となり,\ 
+$(Y_m(\omega))_{m=1}^{\infty}$
+が
+$X(\omega)$
+に収束しないことがわかった.\ 
+したがって,\ 
+$A:= \left\{\omega \in \Omega \ | \ \lim_{m\to \infty}Y_m(\omega) = X(\omega) = 0 \right\} = \Omega$,\ 
+つまり
+$P(\lim_{m\to\infty}Y_m = X) = P(\emptyset) = 0$
+となり,\ 
+$(Y_m)_{m=1}^{\infty}$
+が
+$X$
+に概収束しないことがわかった.\ 
+
+
+\subsection{概収束してp次平均収束しない例}
+例2.48の確率変数列
+$X_n(\omega)=n1_{(0,\frac{1}{n})}(\omega)$
+を考える.\ 
+$(X_n)_{n=1}^\infty$
+が確率変数
+$X(\omega)(\omega)=0(\forall \omega \in \Omega)$
+に概収束することを示す.\ 
+$(X_n)_{n=1}^{\infty}$
+が
+$X$
+に各点収束することを示せば十分である.\ 
+なぜならば,\ 各点収束するならば
+$\left\{\omega \in \Omega \ | \ \lim_{n\to\infty}X_n(\omega) = X(\omega) \right\} = \Omega$
+となり,\ 
+$P(\Omega) = 1$
+となるからである.\ 
+
+任意の
+$\omega \in \Omega$
+に対し,\ 
+$N_0 := \lfloor \frac{1}{\omega} \rfloor$
+とする.\ 
+$n > N_0$
+のとき,\ 
+$|X_n(\omega)-X(\omega)| = |n1_{(0,\frac{1}{n})(\omega)}| = 0$
+となる.\ 
+よって,\ 
+$(X_n)_{n=1}^{\infty}$
+が
+$X$
+に各点収束し,\ 概収束することがわかった.\ 
+
+次に
+$(X_n)_{n=1}^{\infty}$
+が
+$X$
+にp次平均収束しないことを示す.\ 
+\begin{align}
+  \mathbb{E}[|X_n-X|^p]
+  & = \int_{\Omega} |X_n(\omega) - X(\omega)|^p P(d\omega) \\
+  & = \int_{\Omega} |n1_{\left( 0,\frac{1}{n}\right)}(\omega)|^p P(d\omega) \\
+  & = n^p \int_{\Omega} 1_{\left( 0, \frac{1}{n}\right)}(\omega) P(d\omega) \\
+  & = n^p P\left( \left( 0,\frac{1}{n}\right)\right) \\
+  & = n^p \frac{1}{n} \\
+  & = n^{p-1}
+\end{align}
+であるので,\ 
+$\lim_{n\to\infty} \mathbb{E}[|X_n-X|^p] = \lim_{n\to\infty} n^{p-1} > 0$
+となる.\ 
+
+
+\section{ルベーグ積分}
+\subsection{表記法}
   $(\Omega,\mathcal{F},\mu)$
   を測度空間とし,\ 
   $f:\Omega \to \mathbb{R}$
@@ -398,15 +720,15 @@ $B := [0,1] \cap \left( \bigcup_{l=1}^{\infty}A_l\right)^c \in \mathcal{B}(\math
   $f = \sum_{i=1}^m a_i 1_{A_i},\ a_i \in \left[ 0, \infty\right],\ A_i \in \mathcal{F}$
   と有限和でかけるとき,\ 
   $f$
-  を単純と呼び,\ そのときに限り,\ 
+  を単関数と呼び,\ 
   $f \in SF^+$
   と書く.\ 
   $f$
-  が非負値関数であるときに限り,\ 
+  が非負値関数であるとき,\ 
   $f \in m\mathcal{F}^+$
   と書く.\ 
   $f$
-  が一般の可測関数であるときに限り,\ 
+  が一般の可測関数であるとき,\ 
   $f \in m\mathcal{F}$
   と書く.\ 
 
@@ -428,7 +750,7 @@ $B := [0,1] \cap \left( \bigcup_{l=1}^{\infty}A_l\right)^c \in \mathcal{B}(\math
   $f_n \nearrow f$
   と書く.\ 
 
-\section*{積分の基礎事項}
+\subsection{積分の基礎事項}
 \begin{definition}[測度の積分]
   $(\Omega,\mathcal{F},\mu)$
   を測度空間とする.\ 
@@ -469,7 +791,7 @@ $B := [0,1] \cap \left( \bigcup_{l=1}^{\infty}A_l\right)^c \in \mathcal{B}(\math
   と定義する.\ 
 \end{definition}
 
-\begin{lemma}[単純な関数の積分の性質]\label{lemma:int_nature}
+\begin{lemma}[単関数の積分の性質]\label{lemma:int_nature}
   $f,\ g \in SF^+$
   とする.\ 
   \begin{description}
@@ -532,8 +854,8 @@ $B := [0,1] \cap \left( \bigcup_{l=1}^{\infty}A_l\right)^c \in \mathcal{B}(\math
   $\mu(f) \leq \mu(g)$.
 \end{proof}
 
-\section*{単調収束定理}
-単調収束定理は測度論の中でも重要な定理で,\ 単純な関数で示せる性質を非負値関数,\ そして一般の可測関数に拡張するためや,\ Fatouの補題,\ Lebesugueの収束定理を示す際に使われる定理である.\ 
+\subsection{単調収束定理}
+単調収束定理は測度論の中でも重要な定理で,\ 単関数で示せる性質を非負値関数,\ そして一般の可測関数に拡張するためや,\ Fatouの補題,\ Lebesugueの収束定理を示す際に使われる定理である.\ 
 単調収束定理を証明するためにいくつかの命題,\ 補題を証明する.\ 
 
 \begin{proposition}\label{prop:doubly}
@@ -850,7 +1172,7 @@ $B := [0,1] \cap \left( \bigcup_{l=1}^{\infty}A_l\right)^c \in \mathcal{B}(\math
   $id:[0,\infty) \to [0,\infty)$
   を恒等写像とすると,\ 
   $a_r \nearrow id$
-  (証明はAppendixに記載)だから,\ 
+  (証明は\ref{subsec:proof}に記載)だから,\ 
   $f_n^r \nearrow f_n$
   となり,\ 補題\ref{lemma:int_unique}(2)より,\ 
   $\lim_r \mu(f_n^r) = \mu(f_n)$
@@ -865,7 +1187,7 @@ $B := [0,1] \cap \left( \bigcup_{l=1}^{\infty}A_l\right)^c \in \mathcal{B}(\math
   とわかる.\ 
 \end{proof}
 
-\section*{測度論の積分における主要な定理}
+\subsection{測度論の積分における主要な定理}
 以下,\ 単調収束定理を用いて,\ 非負値可測関数の積分の性質,\ Fatouの補題,\ Lebesugueの収束定理を示す.\ 
 
 \begin{lemma}[非負値関数の積分の性質]
@@ -894,7 +1216,7 @@ $B := [0,1] \cap \left( \bigcup_{l=1}^{\infty}A_l\right)^c \in \mathcal{B}(\math
   となる.\ 
   
   (1)
-  単純な関数の積分の線形性より,\ 
+  単関数の積分の線形性より,\ 
   $\mu(\alpha f_r + \beta g_r) = \alpha \mu(f_r) + \beta \mu(g_r)$
   となる.\ 
   また,\ 明らかに
@@ -903,7 +1225,7 @@ $B := [0,1] \cap \left( \bigcup_{l=1}^{\infty}A_l\right)^c \in \mathcal{B}(\math
   $\mu(\alpha f + \beta g_r) = \lim_r \mu(\alpha f_r + \beta g_r) = \lim_r \left(  \alpha \mu(f_r) + \beta \mu(g_r) \right) = \alpha \mu(f) + \beta \mu(g)$.
 
   (2)
-  単純な関数の積分の単調性より,\ 
+  単関数の積分の単調性より,\ 
   $\mu(f_r) \leq \mu(g_r)$
   となる.\ 
   よって,\ 任意の
@@ -1039,12 +1361,10 @@ $B := [0,1] \cap \left( \bigcup_{l=1}^{\infty}A_l\right)^c \in \mathcal{B}(\math
   となる.\ 
 \end{proof}
 
-\section*{Appendix}
-\subsection*{$\alpha_r \nearrow id$の証明}
+\subsection{$\alpha_r \nearrow id$の証明}\label{subsec:proof}
 \begin{proof}
   任意の
-  $x\in \left[ 0, \infty \right)$
-  ,\ 
+  $x\in \left[ 0, \infty \right)$,\ 
   $\epsilon > 0$
   に対して,\ 
   $r_0 = \lceil \max(x, -\log_2 \epsilon) \rceil$
@@ -1071,9 +1391,6 @@ $B := [0,1] \cap \left( \bigcup_{l=1}^{\infty}A_l\right)^c \in \mathcal{B}(\math
   を示すことができたので,\ 
   $\alpha^r \nearrow id$.
 \end{proof}
-
-
 %\bibliographystyle{junsrt}
 %\bibliography{}
-
 \end{document}
