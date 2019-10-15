@@ -76,6 +76,61 @@
 
 
 \section{命題2.25の証明の補足}
+\subsection*{$F$が右連続であることの証明}
+教科書では
+$y_n:=x+\frac{1}{n}$
+となる数列を用いて
+$\lim_{n\to\infty}F(y_n) = F(x)$
+を示しているが,\ 
+$x$
+に収束する任意の数列
+$(z_n)_{n=1}^{\infty}\ (z_n>x)$
+について
+$\lim_{n\to\infty}F(z_n) = F(x)$
+を示さないと,\ 
+$F$
+の右連続性を示すことができない.\ 
+ここでは,\ もう少し詳細に
+$F$
+の右連続性を証明する.\ 
+
+\begin{proof}
+  $A_n:=\left( -\infty, x+\frac{1}{n}\right]$
+  と定義すると,\ 
+  $A_n \searrow A :=(-\infty, x]$
+  となる.\ 
+  よって,\ 測度の連続性より,\ 
+  $\lim_{n\to\infty}\mu(A_n) = \mu(A)$
+  となる.\ 
+  つまり,\ これは
+  \begin{equation}
+    \forall \epsilon > 0 \ \exists N \in \mathbb{N} \ \ {\rm s.t.}\ \ n > N \Rightarrow |\mu(A_n) - \mu(A)| < \epsilon
+  \end{equation}
+  となることを意味している.\ 
+  この
+  $N$
+  を用いて,\ 
+  $\delta := \frac{1}{N+1}$
+  とすると,\ 
+  $0<y-x<\delta$
+  のとき,\ 
+  $y < x + \delta = x + \frac{1}{N+1}$
+  なので,\ 
+  $A_{N+1} \supset (-\infty,y]$
+  となる.\ 
+  よって,\ 
+  \begin{align}
+    |F(y)-F(x)|
+    & = |\mu((-\infty,y]) - \mu(A)| \\
+    & = \mu((-\infty,y]) - \mu(A) \\
+    & \leq \mu(A_{N+1}) - \mu(A) \\
+    & < \epsilon
+  \end{align}
+  となり,\ 
+  $F$
+  が右連続であることを示すことができた.\ 
+\end{proof}
+\subsection*{$Y$が確率変数であることの証明}
 1)-3)を満たす
 $\mathbb{R}$
 上の関数
@@ -84,10 +139,9 @@ $F$
 $(\mathbb{R},\mathcal{B}(\mathbb{R}))$
 上の確率測度
 $\mu$
-が一意的に定まることの証明をする.\ 
-
+が一意的に定まることを証明するために,\  
 $Y(w):\left( 0,1\right)\to \mathbb{R}:w\mapsto \sup \left\{y \in \mathbb{R} | F(y) < w \right\}, \ w \in \left(0,1 \right)$
-とする.
+が確率変数であることを用いている.\ 
 集合
 $A$
 に対する
@@ -109,6 +163,7 @@ $\mathbb{R}$
     が存在して,\ 
     $y^\star - \epsilon < y$.
 \end{itemize}
+
 教科書では
 \begin{quote}
 $Y$
@@ -122,22 +177,72 @@ $F$
 なぜならば,\ 1)-3)の条件だけでは
 $F$
 が全単射であることを保証できないからである.\ 
-$F$
-が全単射であるためには,\ 狭義単調増加,\ 連続であればよい.\ 
-$Y$
-が左連続であるかは確かめることができなかった.\ 
 
-\paragraph*{}
+教科書では
+$Y$
+が左連続であることと,\ 左連続関数は可測関数となることを用いて証明しているが,\ 左連続関数が可測関数となる事実を用いずに証明できるので,\ その証明を紹介する.\ 
+
+ちなみに
+$Y$
+が左連続であることの証明は以下の通りである.\ 
+\begin{proof}
+  $\forall w \in (0,1) \ \forall \epsilon >0 \ \exists \delta > 0  \ \  {\rm s.t.}\ \ 0 < w-a <\delta \Rightarrow |Y(w)-Y(a)| < \epsilon$
+  を示せばよい.\ 
+  $C(w) := \left\{y\in\mathbb{R}\ |\ F(y)<w \right\}$
+  とすると,\ 
+  $1 > w > a > 0$
+  のとき,\ 
+  $C(w) \supset C(a)$
+  であるため,\ 
+  $Y(w) \geq Y(a)$
+  である.\ 
+  $Y$
+  の定義より,\ 任意の
+  $\epsilon > 0$
+  に対し,\ ある
+  $y \in C(w)$
+  が存在して,\ 
+  $Y(w) - \epsilon < y$
+  とできる.\ 
+  $F(y) < w$
+  なので,\ ある
+  $\delta > 0$
+  が存在して,\ 
+  $F(y) < w - \delta$
+  とでき,\ 
+  $y \in C(w-\delta)$,\ 
+  つまり
+  $y \leq Y(w-\delta)$
+  となる.\ 
+  この
+  $\delta$
+  を用いて,\ 
+  $0 < w-a<\delta$
+  を満たす任意の
+  $a$
+  を考える.\ 
+  $w-\delta < a$
+  なので,\ 
+  $Y(w-\delta) \leq Y(a)$
+  となることに注意すると,\ 
+  \begin{align}
+    |Y(w)-Y(a)|
+    & = Y(w) - Y(a) \\
+    & \leq Y(w) - Y(w-\delta) \\
+    & \leq Y(w) - y \\
+    & < \epsilon
+  \end{align}
+  が成立する.\ 
+\end{proof}
+
+以下,\ 
+$Y$
+が確率変数であることを証明する.\ 
 任意の
 $x\in \mathbb{R}$
 に対し,\ 
-$\left\{ w \in \left( 0,1\right) | Y(w) \leq x \right\} = \left\{ w\in \left( 0,1\right) | w\leq F(x) \right\}$
+$A(x):=\left\{ w \in \left( 0,1\right) | Y(w) \leq x \right\} = \left\{ w\in \left( 0,1\right) | w\leq F(x) \right\}=:B(x)$
 が成り立つことを示す.\ 
-左辺を
-$A(x)$
-右辺を
-$B(x)$
-と書くことにする.\ 
 
 まず,\ 
 $A(x) \subset B(x)$
@@ -148,13 +253,23 @@ $w \in A(x)$
 $w > F(x)$
 であると仮定する.\ 
 $F$
-の右連続性から,\ ある
+の右連続性から,\ 
+$\epsilon := w - F(x)$
+とすると、ある
 $\delta > 0$
-に対して,\ 
-$w > F(x + \delta)$
-となる.\ 
+が存在して、
+$0 < y - x < \delta \Rightarrow |F(y)-F(x)| < \epsilon$
+とできる。
+$0 < y - x < \delta$
+を満たす
+$y$
+を用いると、
+$|F(y)-F(x)| = F(y)-F(x) < \epsilon$
+より、
+$F(y) < F(x)+\epsilon = w$
+となる。
 よって,\ 
-$Y(w) \geq x + \delta > x$
+$Y(w) \geq y > x$
 となる.\ 
 これは
 $w \in A(x)$
@@ -484,11 +599,11 @@ $|\mathbb{E}[XY]| \leq \|X\|_\infty \mathbb{E}[|Y|]$
   が
   確率変数
   $X$
-  に法則収束することと、分布関数列
+  に法則収束することと,\ 分布関数列
   $(F_{X_n})_{n=1}^{\infty}$
   が
   $F_X$
-  に各点収束することは同値である。
+  に各点収束することは同値である.\ 
 \end{lemma}
 \begin{proof}
   (1)必要性
@@ -496,43 +611,43 @@ $|\mathbb{E}[XY]| \leq \|X\|_\infty \mathbb{E}[|Y|]$
   $(X_n)_{n=1}^{\infty}$
   が
   $X$
-  に法則収束すると仮定する。
+  に法則収束すると仮定する.\ 
   $\mathbb{E}[f(X)] = \int_{\mathbb{R}}f(x) P_X(dx)$
-  となるので、
+  となるので,\ 
   $\lim_{n\to\infty} \int_{\mathbb{R}} f(x) P_{X_n}(dx) = \int_{\mathbb{R}} f(x) P_X(dx)$
-  となる。
+  となる.\ 
   $A \in \mathcal{O}(\mathbb{R})$
-  とすると、
+  とすると,\ 
   $g_k \in C_b(\mathbb{R}) \nearrow 1_A$
   となる関数列
   $(g_k)_{k=1}^{\infty}$
-  が存在する。
+  が存在する.\ 
   $\int_{\mathbb{R}} 1_A(x) P_{X_n}(dx) = P_{X_n}(A) \geq \int_{\mathbb{R}} g_k(x) P_{X_n}(dx)$
-  なので、仮定より
+  なので,\ 仮定より
   $\liminf_{n\to\infty} P_{X_n}(dx) \geq \liminf_{n\to\infty} \int_{\mathbb{R}} g_k(x) P_{X_n}(dx) = \int_{\mathbb{R}} g_k(x) P_X(dx)$
-  が成り立つ。
+  が成り立つ.\ 
   単調収束定理より
   $\lim_{k\to\infty} \int_{\mathbb{R}} g_k(x) P_X(dx) = \int_\mathbb{R} 1_A(x)P_X(dx) = P(A)$
-  が成り立つので、
+  が成り立つので,\ 
   \begin{equation} \label{eq:inf}
     \liminf_{n\to\infty} P_{X_n}(A) \geq P(A)
   \end{equation}
-  となる。
-  また、
+  となる.\ 
+  また,\ 
   $B = A^c$
-  とすると、
+  とすると,\ 
   $\limsup_{n\to\infty} P_{X_n}(B) = \limsup_{n\to\infty} 1-P_{X_n}(A) = 1 - \liminf_{n\to\infty}P_{X_n}(A) \leq 1 - P_X(A) = P_X(B)$
-  が成り立つ。
-  よって、任意の
+  が成り立つ.\ 
+  よって,\ 任意の
   $B \in \mathcal{O}(\mathbb{R})^c$
-  に対し、
+  に対し,\ 
   \begin{equation} \label{eq:inf}
     \limsup_{n\to\infty} P_{X_n}(B) \leq P_X(B)
   \end{equation}
-  となることがわかる。
-  以上より、任意の
+  となることがわかる.\ 
+  以上より,\ 任意の
   $t \in \mathbb{R}$
-  に対し、
+  に対し,\ 
   \begin{align}
     \limsup_{n\to\infty} F_{X_n}(t) \\
     & = \limsup_{n\to\infty} P_{X_n}((-\infty, t]) 
@@ -542,27 +657,27 @@ $|\mathbb{E}[XY]| \leq \|X\|_\infty \mathbb{E}[|Y|]$
   \end{align}%ここ書いてない
   $\lim_{n\to\infty} \int_{\mathbb{R}} 1_A(x) P_{X_n}(dx) = \lim_{n\to\infty} P_{X_n}(A)$,
   $\int_{\mathbb{R}} 1_A(x) P_X(dx) = P_X(A)$
-  となる。
-  よって、
+  となる.\ 
+  よって,\ 
   $\lim_{n\to\infty} P_{X_n}(A) = P_X(A)$
-  であるので、
+  であるので,\ 
   $\lim_{n\to\infty} F_{X_n} = F_X$
-  とわかる。
+  とわかる.\ 
 
   (2)十分性
 
   $\lim_{n\to\infty}F_{X_n} = F_X$
-  と仮定する。
-  $\pi$-$\lambda$定理より、
+  と仮定する.\ 
+  $\pi$-$\lambda$定理より,\ 
   $\lim_{n\to\infty}P_{X_n} = P_X$
-  である。
+  である.\ 
   $A \in \mathcal{B}(\mathbb{R})$
-  とする。
+  とする.\ 
   $\lim_{n\to\infty} \int_\mathbb{R} 1_A(x) P_{X_n}(dx) = \lim_{n\to\infty} P_{X_n}(A)$,
   $\int_{\mathbb{R}} 1_A(x) P_X(dx) = P_X(A)$
-  より、
+  より,\ 
   $\lim_{n\to\infty} \int_{\mathbb{R}} 1_A(x) P_{X_n}(dx) = \int_{\mathbb{R}} 1_A(x) P_X(dx)$
-  とわかる。
+  とわかる.\ 
 \end{proof}
 
 \end{comment}
